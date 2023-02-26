@@ -21,7 +21,7 @@ import {
 } from "../modal/ModalStyled";
 
 export const Recados: React.FC<Recado> = ({
-  id,
+  recadoId,
   detalhamento,
   descricao,
   status,
@@ -47,30 +47,30 @@ export const Recados: React.FC<Recado> = ({
   const handleUpdateRecado = () => {
     dispatch(
       atualizarRecadoAPI({
-        cpf: usuarioLogado,
+        usuarioId: Number(usuarioLogado),
         recado: {
-          id,
+          recadoId,
           status,
           detalhamento: novoDetalhamento,
           descricao: novaDescricao,
         },
       })
     );
-    dispatch(buscarRecadosUsuarioAPI({ cpf: usuarioLogado }));
+    dispatch(buscarRecadosUsuarioAPI({ usuarioId: Number(usuarioLogado) }));
     handleCloseEdit();
   };
 
   const handleRemoveRecado = () => {
-    dispatch(deletarRecadoAPI({ cpf: usuarioLogado, id }));
+    dispatch(deletarRecadoAPI({ usuarioId: Number(usuarioLogado), recadoId }));
     handleCloseExclude();
   };
 
   const handleArchiveRecado = () => {
     dispatch(
       atualizarRecadoAPI({
-        cpf: usuarioLogado,
+        usuarioId: Number(usuarioLogado),
         recado: {
-          id,
+          recadoId,
           status: "arquivado",
           detalhamento,
           descricao,

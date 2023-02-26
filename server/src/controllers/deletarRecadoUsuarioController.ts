@@ -14,7 +14,10 @@ export class DeletarRecadoUsuarioController {
         return res.status(400).json({ mensagem: result.message });
       }
 
-      return res.status(204).end();
+      return res.status(200).json({
+        mensagem: "Recado excluído com sucesso",
+        data: result,
+      });
     } catch (error) {
       return res.status(500).json({
         mensagem: "Internal Server Error",

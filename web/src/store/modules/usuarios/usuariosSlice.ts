@@ -6,10 +6,10 @@ import {
 import { RootState } from "../..";
 import { requisicaoApi } from "../../../services/api";
 
-import { Usuario } from "../../../interfaces";
+import { NovoUsuario, Usuario } from "../../../interfaces";
 
 const userAdapter = createEntityAdapter<Usuario>({
-  selectId: (user) => user.cpf,
+  selectId: (user) => user.usuarioId,
 });
 
 export const {
@@ -30,7 +30,7 @@ export const buscarUsuariosAPI = createAsyncThunk(
 
 export const adicionarUsuarioAPI = createAsyncThunk(
   "usuarios/adicionarUsuario",
-  async (novoUsuario: Usuario) => {
+  async (novoUsuario: NovoUsuario) => {
     const respostaApi = await requisicaoApi.post(
       "/usuarios",
       JSON.stringify(novoUsuario)
@@ -45,20 +45,17 @@ export const adicionarUsuarioAPI = createAsyncThunk(
 const usuariosSlice = createSlice({
   name: "usuarios",
   initialState: userAdapter.getInitialState({
-    success: false,
-    message: "",
+    mensagem: "",
   }),
   reducers: {},
   extraReducers(builder) {
     builder.addCase(buscarUsuariosAPI.fulfilled, (state, action) => {
-      state.success = action.payload.sucess;
-      state.message = action.payload.message;
+      state.mensagem = action.payload.message;
       userAdapter.setAll(state, action.payload.data);
     });
 
     builder.addCase(adicionarUsuarioAPI.fulfilled, (state, action) => {
-      state.success = action.payload.sucess;
-      state.message = action.payload.message;
+      state.mensagem = action.payload.message;
       userAdapter.addOne(state, action.payload.data);
     });
   },

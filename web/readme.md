@@ -1,7 +1,7 @@
 <h1 align="center"> Projeto Sistema de Recados </h1>
 
 <p align="center">
-Projeto Final de Módulo - Growdev
+Projeto Final de Módulo Banco de Dados - Growdev
 </p>
 
 <p align="center">
@@ -33,12 +33,6 @@ Projeto Final de Módulo - Growdev
 <p align="center">
   
 </p>
-<!-- <p align="center">
-  <img alt="mobile1" src=".github/Mobile1.jpeg" width="30%">
-</p>
-<p align="center">
-  <img alt="mobile2" src=".github/Mobile2.jpeg" width="30%">
-</p> -->
 
 ## 🚀 Tecnologias
 
@@ -56,6 +50,6 @@ O Note System é uma simulação de sistema CRUD que armazena dados no Local Sto
 
 ## 📓 Sistema
 
-Trabalho final do Modulo Front-end III da Growdev.
-Você pode acessar o projeto através [DESSE LINK](https://note-system.vercel.app/). Sistema pode ser acessado via Desktop ou Mobile.
-Versão atualizada do projeto [Novo Sistema de Recados](https://andreloren.github.io/Novo_Sistema_Recados/),
+Trabalho final do Modulo Banco de Dados II da Growdev.
+
+Versão atualizada do projeto [Sistema de Recados](https://github.com/Andreloren/Note_System_DB),

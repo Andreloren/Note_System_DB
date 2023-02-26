@@ -14,7 +14,7 @@ import {
 } from "../../../interfaces";
 
 const adapter = createEntityAdapter<Recado>({
-  selectId: (recados) => recados?.id,
+  selectId: (recados) => recados?.recadoId,
 });
 
 export const { selectAll: buscarRecados, selectById: buscarRecadoPorId } =
@@ -23,7 +23,7 @@ export const { selectAll: buscarRecados, selectById: buscarRecadoPorId } =
 export const buscarRecadosUsuarioAPI = createAsyncThunk<any, IFilter>(
   "recado/buscarTodos",
   async (objeto: IFilter) => {
-    let url = `/usuarios/${objeto.cpf}/recados`;
+    let url = `/usuarios/${objeto.usuarioId}/recados`;
 
     if (objeto.filter) {
       url += `?filter=${objeto.filter}`;
@@ -38,9 +38,9 @@ export const buscarRecadosUsuarioAPI = createAsyncThunk<any, IFilter>(
 
 export const adicionarRecadoAPI = createAsyncThunk(
   "recado/adicionarNovo",
-  async (dados: IcriarRecado, { dispatch }) => {
+  async (dados: IcriarRecado) => {
     const respostaApi = await requisicaoApi.post(
-      `/usuarios/${dados.cpf}/recados`,
+      `/usuarios/${dados.usuarioId}/recados`,
       JSON.stringify(dados.recado)
     );
 
@@ -54,7 +54,7 @@ export const atualizarRecadoAPI = createAsyncThunk(
   "recado/atualizarRecado",
   async (dados: IatualizaRecado, { dispatch }) => {
     const respostaApi = await requisicaoApi.put(
-      `/usuarios/${dados.cpf}/recados/${dados.recado.id}`,
+      `/usuarios/${dados.usuarioId}/recados/${dados.recado.recadoId}`,
       JSON.stringify(dados.recado)
     );
 
@@ -63,7 +63,7 @@ export const atualizarRecadoAPI = createAsyncThunk(
     if (respostaApi.status === 200) {
       dispatch(
         buscarRecadosUsuarioAPI({
-          cpf: dados.cpf,
+          usuarioId: dados.usuarioId,
         })
       );
     }
@@ -75,7 +75,7 @@ export const deletarRecadoAPI = createAsyncThunk(
   "recado/deletarRecado",
   async (dados: IdeleteRecado) => {
     const respostaApi = await requisicaoApi.delete(
-      `/usuarios/${dados.cpf}/recados/${dados.id}`
+      `/usuarios/${dados.usuarioId}/recados/${dados.recadoId}`
     );
 
     const dataPartial = JSON.parse(respostaApi.data);
@@ -87,8 +87,7 @@ export const deletarRecadoAPI = createAsyncThunk(
 const recadoSlice = createSlice({
   name: "recados",
   initialState: adapter.getInitialState({
-    sucess: false,
-    message: "",
+    mensagem: "",
   }),
   reducers: {
     deletarTodos: adapter.removeAll,
@@ -96,30 +95,26 @@ const recadoSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(buscarRecadosUsuarioAPI.fulfilled, (state, action) => {
-      state.sucess = action.payload.sucess;
-      state.message = action.payload.message;
-      adapter.setAll(state, action.payload.data);
+      state.mensagem = action.payload.message;
+      adapter.setAll(state, action.payload.data.recados);
     });
 
     builder.addCase(adicionarRecadoAPI.fulfilled, (state, action) => {
-      state.sucess = action.payload.sucess;
-      state.message = action.payload.message;
+      state.mensagem = action.payload.message;
       adapter.addOne(state, action.payload.data);
     });
 
     builder.addCase(atualizarRecadoAPI.fulfilled, (state, action) => {
-      state.sucess = action.payload.sucess;
-      state.message = action.payload.message;
+      state.mensagem = action.payload.message;
       adapter.updateOne(state, {
-        id: action.payload.data.id,
-        changes: action.payload.data,
+        id: action.payload.data.recadoId,
+        changes: action.payload.data.recados,
       });
     });
 
     builder.addCase(deletarRecadoAPI.fulfilled, (state, action) => {
-      state.sucess = action.payload.sucess;
-      state.message = action.payload.message;
-      adapter.removeOne(state, action.payload.data.id);
+      state.mensagem = action.payload.message;
+      adapter.removeOne(state, action.payload.data.recadoId);
     });
   },
 });

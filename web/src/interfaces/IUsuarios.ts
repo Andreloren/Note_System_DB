@@ -1,6 +1,15 @@
 import { Recado } from "./IRecados";
 
 export interface Usuario {
+  usuarioId: number;
+  nome: string;
+  cpf: string;
+  email: string;
+  senha: string;
+  recados: [];
+}
+
+export interface NovoUsuario {
   nome: string;
   cpf: string;
   email: string;
@@ -9,6 +18,6 @@ export interface Usuario {
 }
 
 export interface atualizarUsuario {
-  cpf: string;
+  usuarioId: number;
   recados: Recado[];
 }

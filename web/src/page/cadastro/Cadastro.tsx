@@ -30,7 +30,7 @@ import { Link } from "../../shared/components/footer/Footer";
 import { FooterStyled } from "../../shared/components/footer/FooterStyled";
 import { label } from "../../shared/components/tipos/Tipos";
 
-import type { Usuario } from "../../interfaces";
+import type { NovoUsuario } from "../../interfaces";
 
 import { useAppDispatch, useAppSelector } from "../../store/modules/hooks";
 import {
@@ -183,7 +183,7 @@ export const Cadastro: React.FC = () => {
   };
 
   const handleClickCadastrar = () => {
-    const novoUsuario: Usuario = {
+    const novoUsuario: NovoUsuario = {
       nome,
       cpf,
       email,
@@ -192,7 +192,8 @@ export const Cadastro: React.FC = () => {
     };
 
     const usuarioExistente = usuarios.find(
-      (usuario) => usuario.cpf === novoUsuario.cpf
+      (usuario) =>
+        usuario.cpf === novoUsuario.cpf || usuario.email === novoUsuario.email
     );
 
     if (usuarioExistente) {

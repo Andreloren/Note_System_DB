@@ -16,8 +16,10 @@ export class BuscarTodosRecadosUsuarioController {
         return res.status(400).json({ mensagem: result.message });
       }
 
-      const filtroRecados = filter
-        ? result!.recados
+      if (filter) {
+        return res.status(200).json({
+          mensagem: "Recado encontrado com sucesso",
+          data: result!.recados
             .filter(
               (f: { descricao: string; detalhamento: string }) =>
                 f.descricao
@@ -29,25 +31,30 @@ export class BuscarTodosRecadosUsuarioController {
             )
             .map(
               (m: {
-                recadoId: string;
-                status: status;
+                createRecado: string;
                 descricao: string;
                 detalhamento: string;
+                recadoId: string;
+                status: status;
+                updateRecado: string | null;
               }) => {
                 return {
-                  recadoId: m.recadoId,
-                  status: m.status,
+                  createRecado: m.createRecado,
                   descricao: m.descricao,
                   detalhamento: m.detalhamento,
+                  recadoId: m.recadoId,
+                  status: m.status,
+                  updateRecado: m.updateRecado,
                 };
               }
-            )
-        : result;
-
-      return res.status(200).json({
-        mensagem: "Dados encontrados com sucesso",
-        data: filtroRecados,
-      });
+            ),
+        });
+      } else {
+        return res.status(200).json({
+          mensagem: "Dados encontrados com sucesso",
+          data: result,
+        });
+      }
     } catch (error) {
       return res.status(500).json({
         mensagem: "Internal Server Error",

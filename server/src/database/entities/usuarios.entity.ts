@@ -17,7 +17,7 @@ export class UsuariosEntity {
   @Column({ type: "text" })
   nome!: string;
 
-  @Column({ type: "text" })
+  @Column({ type: "text", unique: true })
   email!: string;
 
   @Column({ type: "text", unique: true })

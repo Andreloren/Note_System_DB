@@ -1,28 +1,28 @@
 import { status } from "../shared/components/tipos/Tipos";
 
 export interface Recado {
-  id: string;
+  recadoId: string;
   status: status;
   descricao: string;
   detalhamento: string;
 }
 
 export interface IatualizaRecado {
-  cpf: string;
+  usuarioId: number;
   recado: Recado;
 }
 
 export interface IcriarRecado {
-  cpf: string;
-  recado: Omit<Recado, "id" | "status">;
+  usuarioId: number;
+  recado: Omit<Recado, "recadoId" | "status">;
 }
 
 export interface IdeleteRecado {
-  cpf: string;
-  id: string;
+  usuarioId: number;
+  recadoId: string;
 }
 
 export interface IFilter {
-  cpf: string;
+  usuarioId: number;
   filter?: string;
 }

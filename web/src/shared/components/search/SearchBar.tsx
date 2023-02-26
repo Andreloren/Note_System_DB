@@ -48,7 +48,7 @@ export function SearchBar() {
   const filterHome = () => {
     dispatch(
       buscarRecadosUsuarioAPI({
-        cpf: usuarioLogado,
+        usuarioId: Number(usuarioLogado),
         filter: busca,
       })
     );

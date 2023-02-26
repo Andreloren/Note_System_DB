@@ -14,7 +14,7 @@ import { atualizarRecadoAPI } from "../../../store/modules/recados/recadosSlice"
 import { buttonStyledModalExclude, ModalStyled } from "../modal/ModalStyled";
 
 export const RecadosArquivados: React.FC<Recado> = ({
-  id,
+  recadoId,
   detalhamento,
   descricao,
   status,
@@ -29,9 +29,9 @@ export const RecadosArquivados: React.FC<Recado> = ({
   const handleArchiveRecado = () => {
     dispatch(
       atualizarRecadoAPI({
-        cpf: usuarioLogado,
+        usuarioId: Number(usuarioLogado),
         recado: {
-          id,
+          recadoId,
           status: "ativo",
           detalhamento,
           descricao,

@@ -72,7 +72,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     dispatch(
       buscarRecadosUsuarioAPI({
-        cpf: usuarioLogado,
+        usuarioId: Number(usuarioLogado),
       })
     );
   }, [dispatch, usuarioLogado]);
@@ -113,13 +113,12 @@ export const Home: React.FC = () => {
   const handleCadastrarRecados = () => {
     if (!descricao || !detalhamento) {
       handleOpenAlert();
-      // alert("Necessário digitar alguma informação");
       return;
     }
 
     dispatch(
       adicionarRecadoAPI({
-        cpf: usuarioLogado,
+        usuarioId: Number(usuarioLogado),
         recado: {
           detalhamento,
           descricao,
@@ -232,14 +231,14 @@ export const Home: React.FC = () => {
               .filter((f) => f.status === "arquivado")
               .map(
                 (card: {
-                  id: string;
+                  recadoId: string;
                   status: status;
                   descricao: string;
                   detalhamento: string;
                 }) => (
                   <RecadosArquivados
-                    key={card.id}
-                    id={card.id}
+                    key={card.recadoId}
+                    recadoId={card.recadoId}
                     status={card.status}
                     descricao={card.descricao}
                     detalhamento={card.detalhamento}
@@ -270,14 +269,14 @@ export const Home: React.FC = () => {
           .filter((f) => f.status === "ativo")
           .map(
             (card: {
-              id: string;
+              recadoId: string;
               status: status;
               descricao: string;
               detalhamento: string;
             }) => (
               <Recados
-                key={card.id}
-                id={card.id}
+                key={card.recadoId}
+                recadoId={card.recadoId}
                 status={card.status}
                 descricao={card.descricao}
                 detalhamento={card.detalhamento}

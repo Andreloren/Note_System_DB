@@ -144,7 +144,7 @@ export const Login: React.FC = () => {
       return;
     }
 
-    dispatch(incluirUsuarioLogado(cpf));
+    dispatch(incluirUsuarioLogado(buscaUsuario.usuarioId));
     handleClickSnackBarSucess();
     setTimeout(() => {
       navigate("/home");
