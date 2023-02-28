@@ -96,7 +96,7 @@ const recadoSlice = createSlice({
   extraReducers(builder) {
     builder.addCase(buscarRecadosUsuarioAPI.fulfilled, (state, action) => {
       state.mensagem = action.payload.message;
-      adapter.setAll(state, action.payload.data.recados);
+      adapter.setAll(state, action.payload.data);
     });
 
     builder.addCase(adicionarRecadoAPI.fulfilled, (state, action) => {

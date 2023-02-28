@@ -51,8 +51,8 @@ export class BuscarTodosRecadosUsuarioController {
         });
       } else {
         return res.status(200).json({
-          mensagem: "Dados encontrados com sucesso",
-          data: result,
+          mensagem: "Recados encontrados com sucesso",
+          data: result.recados,
         });
       }
     } catch (error) {
